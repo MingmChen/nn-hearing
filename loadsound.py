@@ -2,31 +2,40 @@ import librosa
 import pandas
 import pickle
 import numpy as np
+import scipy.sparse as sparse
+from os import listdir
 
-num_targets = 0
+# base path for our sound files
+SOUND_BASE_PATH = "/tdata/stimuli/NH/"
+PICKLE_NAME = "NH_basic.pickle"
+# array of all files in path
+files = listdir(SOUND_BASE_PATH)
+# to hold array of .wav file data for each file (array of arrays)
+y_arr = []
+# to hold array of flattened mel spectrograms for each file (array of arrays) 
+mels_flatten_arr = []
+#hold array of targets (what we want to be training on)
+target_arr = []
+for filename in files:
+	target = int(filename[2:5])
+	target_arr.append(target)
+	# y=numpy array, sr=sample rate
+	y, sr = librosa.load(SOUND_BASE_PATH + filename)	
+	y_arr.append(y)
+	# create a mel spectrogram of .wav file and flatten it
+	mels_flatten = librosa.feature.melspectrogram(y=y, sr=sr).flatten()
+	mels_flatten_arr.append(mels_flatten)
 
-#todo: convert this into a loop for getting all files and storing in a df
-#Current target: word file ID (NOT the speaker ID)
-filename = "PB021M1NAT.wav"
-target = int(filename[2:5])
-min_target = target
-num_targets += 1
-
-# y=numpy array, sr=sample rate
-y, sr = librosa.load("/tdata/stimuli/NH/" + filename)
-
-# generate a mel spectogram from the numpy array of the .wav file
-mels = librosa.feature.melspectrogram(y=y, sr=sr)
+# prepare arrays to be stored as one element per file 
+y_arr = np.array(y_arr)
+mels_flatten_arr = np.array(mels_flatten_arr)
+y_list = y_arr.tolist()
+mels_flatten_list = mels_flatten_arr.tolist()
 
 # store .wav file data in a data frame
 # The data frame should have a data column containing numpy array and a target
-ds = pandas.DataFrame({"data":y,"target":target, "mels": mels}) 
+data = {'target':target_arr,'data': y_list, "mels_flatten":mels_flatten_list}
+df2 = pandas.DataFrame(data)
 
-def to1hot(row):
-	one_hot = np.zeros(num_targets)
-	one_hot[row - min_target] = 1.0
-	return one_hot
-
-ds["one_hot_encoding"] = ds.target.apply(to1hot)
-
-
+#serialize data table to file
+df2.to_pickle(PICKLE_NAME)
