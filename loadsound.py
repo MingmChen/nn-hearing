@@ -16,6 +16,7 @@ y_arr = []
 mels_flatten_arr = []
 #hold array of targets (what we want to be training on)
 target_arr = []
+len_arr = []
 for filename in files:
 	target = int(filename[2:5])
 	target_arr.append(target)
@@ -25,17 +26,21 @@ for filename in files:
 	# create a mel spectrogram of .wav file and flatten it
 	mels_flatten = librosa.feature.melspectrogram(y=y, sr=sr).flatten()
 	mels_flatten_arr.append(mels_flatten)
+	len_arr.append(len(mel_flatten))
 
 # prepare arrays to be stored as one element per file 
+target_arr = np.array(target_arr)
 y_arr = np.array(y_arr)
-mels_flatten_arr = np.array(mels_flatten_arr)
+mels_flatten_arr = np.array(mels_flatten_arr, dtype = object)
 y_list = y_arr.tolist()
 mels_flatten_list = mels_flatten_arr.tolist()
 
 # store .wav file data in a data frame
 # The data frame should have a data column containing numpy array and a target
-data = {'target':target_arr,'data': y_list, "mels_flatten":mels_flatten_list}
+data = {'target':target_arr,'data': y_list, "mels_flatten":mels_flatten_list,"lens":len_arr}
 df2 = pandas.DataFrame(data)
+
+
 
 #serialize data table to file
 df2.to_pickle(PICKLE_NAME)
