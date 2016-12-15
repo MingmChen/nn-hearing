@@ -13,7 +13,7 @@ import scipy.sparse as sparse
 from os import listdir
 
 # base path for our sound files
-SOUND_BASE_PATH = "/tdata/Clear/"
+SOUND_BASE_PATH = "./Clear/"
 PICKLE_NAME = "Clear_advanced.pickle"
 # array of all files in path
 files = listdir(SOUND_BASE_PATH)

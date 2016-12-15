@@ -12,7 +12,7 @@ import scipy.sparse as sparse
 from os import listdir
 
 # base path for our sound files
-SOUND_BASE_PATH = "/tdata/stimuli/Vocoded/"
+SOUND_BASE_PATH = "./Vocoded/"
 PICKLE_NAME = "Vocoded_basic.pickle"
 # array of all files in path
 files = listdir(SOUND_BASE_PATH)
