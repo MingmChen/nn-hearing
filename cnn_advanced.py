@@ -12,7 +12,7 @@ import math
 import tensorflow as tf
 
 # read in our data
-ds = pandas.read_pickle("Vocoded_basic.pickle")
+ds = pandas.read_pickle("Vocoded_advanced.pickle")
 ds_dim = ds.shape # tuple: (numrows, numcols)
 num_rows = ds_dim[0]
 
@@ -43,7 +43,7 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
-cutoff = 55
+cutoff = 50
 train_x = np.vstack(ds.mels_flatten).astype(np.float32)[0:cutoff]
 train_y = np.vstack(ds.one_hot_encoding).astype(np.float32)[0:cutoff] 
 test_x = np.vstack(ds.mels_flatten).astype(np.float32)[cutoff:]
