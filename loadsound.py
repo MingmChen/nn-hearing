@@ -1,3 +1,9 @@
+# The Cuda Club
+# 12/15/16
+# Create a pickle of a pandas data frame
+# with columns for the encoding of a .wav file,
+# a corresponding mel spectrogram, and target for neural network training.
+
 import librosa
 import pandas
 import pickle
@@ -6,8 +12,8 @@ import scipy.sparse as sparse
 from os import listdir
 
 # base path for our sound files
-SOUND_BASE_PATH = "/tdata/stimuli/NH/"
-PICKLE_NAME = "NH_basic.pickle"
+SOUND_BASE_PATH = "/tdata/stimuli/Vocoded/"
+PICKLE_NAME = "Vocoded_basic.pickle"
 # array of all files in path
 files = listdir(SOUND_BASE_PATH)
 # to hold array of .wav file data for each file (array of arrays)
