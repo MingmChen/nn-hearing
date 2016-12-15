@@ -26,7 +26,7 @@ for filename in files:
 	# create a mel spectrogram of .wav file and flatten it
 	mels_flatten = librosa.feature.melspectrogram(y=y, sr=sr).flatten()
 	mels_flatten_arr.append(mels_flatten)
-	len_arr.append(len(mel_flatten))
+	len_arr.append(len(mels_flatten))
 
 # prepare arrays to be stored as one element per file 
 target_arr = np.array(target_arr)
@@ -38,9 +38,14 @@ mels_flatten_list = mels_flatten_arr.tolist()
 # store .wav file data in a data frame
 # The data frame should have a data column containing numpy array and a target
 data = {'target':target_arr,'data': y_list, "mels_flatten":mels_flatten_list,"lens":len_arr}
-df2 = pandas.DataFrame(data)
+df = pandas.DataFrame(data)
 
+#get minimum spectorgram length
+min_len = df["lens"].min()
+del df["lens"] #delete unnecessary column
 
+#Make all spectrograms the same length
+df["mels_flatten"] = df.mels_flatten.apply(lambda mels: mels[0:min_len])
 
 #serialize data table to file
-df2.to_pickle(PICKLE_NAME)
+df.to_pickle(PICKLE_NAME)

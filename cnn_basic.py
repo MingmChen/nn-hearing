@@ -37,8 +37,19 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
+x_dat = np.vstack(ds.mels_flatten).astype(np.float32)
+y_dat = np.vstack(ds.one_hot_encoding).astype(np.float32) 
+
+# train
 for _ in range(1000):
-	batch_xs = 
+	batch_xs = x_dat
+	batch_ys = y_dat
+	sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+
+# test the model
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+print(sess.run(accuracy, feed_dict={x: x_dat, y_: y_dat}))
 
 # Form training, testing, and validation data sets
 #train_data = ds[0:(num_rows - 5)]
