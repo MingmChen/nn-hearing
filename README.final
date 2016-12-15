@@ -1,0 +1,14 @@
+CUDA HOMEWORK EXERCISES
+
+* vectorAdd.cu - contains a simple CUDA example in which two vectors are
+  added together on the GPU. As a homework exercise, we asked students to
+  print the first ten elements of each vector (on the CPU) and then add
+  code that uses the Event API to record a timing.
+
+* MM_GPU_GM.cu - contains the CSinParallel example of matrix multiplication
+  running on a GPU.  As a homework exercise, we had students experiement
+  with the dimensions of the blocks and threads.
+
+* matrixMul.cu - contains the Nvidia example of matrix multiplication, which
+  is much more complicated than MM_GPU_GM.cu but gives better exposure to
+  the CUDA API and architecture.
