@@ -1,4 +1,4 @@
-cuda	The CUDA Club	pachol1,zimmer2,peters10	Deep learning with CUDA
+# Training a Neural Network to Hear With a Cochlear Implant
 
 Clear:
 .wav audio files of people speaking 2-3 seconds. Originated from the stimuli files for the Cochlear Implant Training HiPerCiC application.
