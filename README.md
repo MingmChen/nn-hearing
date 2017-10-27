@@ -1,6 +1,6 @@
 # Training a Neural Network to Hear With a Cochlear Implant
 
-A small experiment that uses TensorFlow to train a convolutional neural network (CNN) on speaker voices. Training is done with .wav files with 2-3 seconds of a person talking, and again with the same speaker voices "vocoded" to simulate hearing with a cochlear implant. 
+A small experiment that uses TensorFlow to train a convolutional neural network (CNN) on speaker voices. Training is done with .wav files with 2-3 seconds of a person talking, and again with the same speaker voices distorted to simulate deafened hearing. 
 
 The unmodified and vocoded sound files are contained in the [Clear](Clear) and [Vocoded](Vocoded) directories, respectively. Loadsound scripts parse these files into a pickled dataset, and the cnn scripts load that data set to train the CNN and evaluate its accuracy of recognizing speaker voices.
 
