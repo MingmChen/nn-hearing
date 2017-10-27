@@ -1,4 +1,4 @@
-# Training a Neural Network to Hear With a Cochlear Implant
+# Training a Neural Network to Recognize Speaker Voices
 
 A small experiment that uses TensorFlow to train a convolutional neural network (CNN) on speaker voices. Training is done with .wav files with 2-3 seconds of a person talking, and again with the same speaker voices distorted to simulate deafened hearing. 
 
